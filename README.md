@@ -1,7 +1,7 @@
 webMap
 ======
 
-node express web, leaflet map
+Express leaflet map with Bootstrap.
 
 *requires node.js to run.
 
