@@ -26,7 +26,6 @@ $(document).ready(function(){
         success: function(data) {
             //console.log(data.response.requests);
             $.each(data.features, function(i, item) {
-                console.log(item);
                 censusData.push(item);
             });
         }
