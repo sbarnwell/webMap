@@ -26,6 +26,7 @@ $(document).ready(function(){
         success: function(data) {
             //console.log(data.response.requests);
             $.each(data.features, function(i, item) {
+                console.log(item);
                 censusData.push(item);
             });
         }
@@ -45,6 +46,16 @@ $(document).ready(function(){
         "weight": 5,
         "opacity": 0.65
     };
+
+    var censusStyle2 = {
+        "fillColor": "#fff4f4",
+        "color": "#ff7800",
+        "weight": 5,
+        "opacity": 0.65
+    };
+
+
+
 
     function createLayer(data, color, groupLayer) {
         GeoJSON.parse(data, {Point: ['lat', 'lon']}, function(geojson){
@@ -71,6 +82,7 @@ $(document).ready(function(){
 
     var graffiti = new  L.featureGroup();
     var census = new L.LayerGroup();
+    var censusHsg = new L.LayerGroup();
 
     var overlays;
     overlays = {
@@ -84,14 +96,30 @@ $(document).ready(function(){
             }
         }).addTo(census),
 
+        "Census": L.geoJson(censusData, {
+            style: censusStyle2,
+
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup('Census Tract: <strong>' + feature.properties.tractce10 + '</strong> <br>' + 'Total Housing Units: <strong>' + feature.properties.total_housing_units.toLocaleString() + '</strong>');
+            }
+        }).addTo(censusHsg),
+
     };//end overlays
 
 
     map.addLayer(graffiti);
-    map.addLayer(census);
 
     console.log(graffiti);
 
     map.fitBounds(graffiti.getBounds());
+
+    //grouped overlays for legend
+    var Overlays = {
+            "Total Population": census,
+            "Total Housing Units": censusHsg
+    };
+
+//add legend to map
+    L.control.layers(null, Overlays).addTo(map);
 
 }) //end ready

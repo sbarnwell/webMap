@@ -5,3 +5,23 @@ overflow: hidden;
 }
 body {
     padding-top: 50px;
+
+.leaflet-control-layers input {
+    display: inline;
+    margin-bottom: 1px;
+    margin-top: 1px;
+    line-height: 0 !important;
+
+}
+
+.leaflet-control-layers label {
+    margin-bottom: 0;
+    font: 10px/0.75 !important;
+    color: #404040 !important;
+    font-weight: normal !important;
+}
+
+.leaflet-control-layers-list {
+    margin: 0;
+
+}
